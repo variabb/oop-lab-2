@@ -1,4 +1,6 @@
 ﻿using GameAccountNamesspace;
+using GameNamespace;
+using Factory;
 
 namespace Lab_1
 {
@@ -7,20 +9,38 @@ namespace Lab_1
         static void Main(string[] args)
         {
             // Створюємо облікові записи гравців
-            GameAccount account1 = new GameAccount("Varia", 1); // об'єкт класу
-            GameAccount account2 = new GameAccount("Alex", 1);
+            var standardAccount = new StandardAccount("StandardPlayer");
+            var doubleLossAccount = new DoubleLossAccount("DoubleLossPlayer");
+            var winningStreakAccount = new WinningStreakAccount("WinningStreakPlayer");
 
-            // Імітуємо ігри
-            account1.WinGame(account2.UserName, 10);
-            account1.WinGame(account2.UserName, 10);
-            account2.LoseGame(account1.UserName, 10);
+            var gameFactory = new GameFactory();
+            
+            // Імітація ігор
+            PlayGame(standardAccount, doubleLossAccount, gameFactory.CreateGame(GameType.Standard, "cat", 10));
+            PlayGame(doubleLossAccount, winningStreakAccount, gameFactory.CreateGame(GameType.Training, "dog"));
+            PlayGame(winningStreakAccount, standardAccount, gameFactory.CreateGame(GameType.OneSide, "Varia", 10));
+            
+            // Виведення статистики гравців
+            standardAccount.GetStats();
+            doubleLossAccount.GetStats();
+            winningStreakAccount.GetStats();
+        }
 
-            account1.LoseGame(account2.UserName, 15);
-            account2.WinGame(account1.UserName, 15);
+        static void PlayGame(GameAccount player1, GameAccount player2, BaseGame game)
+        {
+            Random rand = new Random();
+            bool playerWins = rand.NextDouble() > 0.5;
 
-            // Виводимо статистику для кожного гравця
-            account1.GetStats();
-            account2.GetStats();
+            if (playerWins)
+            {
+                player1.WinGame(game);
+                player2.LoseGame(game);
+            }
+            else
+            {
+                player1.LoseGame(game);
+                player2.WinGame(game);
+            }
         }
     }
 }
