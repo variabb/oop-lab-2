@@ -16,8 +16,10 @@ namespace Lab_1
             var gameFactory = new GameFactory();
             
             // Імітація ігор
-            PlayGame(standardAccount, doubleLossAccount, gameFactory.CreateGame(GameType.Standard, "cat", 10));
-            PlayGame(doubleLossAccount, winningStreakAccount, gameFactory.CreateGame(GameType.Training, "dog"));
+            PlayGame(standardAccount, doubleLossAccount, gameFactory.CreateGame(GameType.Standard, "john", 10));
+            PlayGame(standardAccount, doubleLossAccount, gameFactory.CreateGame(GameType.Standard, "john", 15));
+            PlayGame(standardAccount, doubleLossAccount, gameFactory.CreateGame(GameType.Standard, "john", 20));
+            PlayGame(doubleLossAccount, winningStreakAccount, gameFactory.CreateGame(GameType.Training, "mango"));
             PlayGame(winningStreakAccount, standardAccount, gameFactory.CreateGame(GameType.OneSide, "Varia", 10));
             
             // Виведення статистики гравців

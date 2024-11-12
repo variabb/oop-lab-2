@@ -5,7 +5,7 @@ namespace GameAccountNamesspace
 {
     public class StandardAccount : GameAccount
     {
-        public StandardAccount(string userName) : base(userName) { }
+        public StandardAccount(string userName) : base(userName) { } // конструктор
 
         public override void WinGame(BaseGame game)
         {
